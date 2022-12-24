@@ -1,8 +1,8 @@
 - hosts: web
   vars:
-    packageName: "httpd"
-    packageState: "present"
-    docRoot: "/var/www/html"
+    - packageName: "httpd"
+    - packageState: "present"
+    - docRoot: "/var/www/html"
 
   tasks:
   - name: "install given package"
