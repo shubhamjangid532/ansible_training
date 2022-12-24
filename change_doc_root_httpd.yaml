@@ -1,0 +1,34 @@
+- hosts: web
+  vars:
+    - packageName: "httpd"
+    - packageState: "present"
+    - docRoot: "/var/www/shubham"
+    - confFileDest: "/vtc/httpd/conf.d/my.comf"
+    - htmlContent: "<h3> This content cooming from /var/www/shubham/index.html</h3>"
+
+  tasks:
+    - name: "Install httpd"
+      package:
+        name: "{{ packageName }}"
+        state: "{{ packageState }}"
+
+    - name: "Create new doc root"
+      file:
+        state: directory
+        path: "{{ docRoot }}"
+
+    - name: "Setting conf File"
+      copy:
+        dest: "{{ confFileDest }}"
+        content: "DocumentRoot {{ docRoot }}\n"
+
+    - name: "Create Html file"
+      copy:
+        dest: "{{ docRoot }}/index.html"
+        content: "{{ htmlContent }}"
+
+    - name: "Restart services"
+      service:
+        name: "{{ packageName }}"
+        state: restarted
+        enabled: true
