@@ -1,0 +1,22 @@
+- hosts: web
+  vars:
+    packageName: "httpd"
+    packageState: "present"
+    docRoot: "/var/www/html"
+
+  tasks:
+  - name: "install given package"
+    package:
+      name: "{{ packageName }}"
+      state: "{{ packageState }}"
+  
+  - name: "Create a basic html page"
+    copy:
+      dest: "{{ docRoot }}/index.html"
+      content: "<h2> Hello World! </h2>"
+  
+  - name: "start services of package"
+    servive:
+      name: "{{ packageName }}"
+      state: restarted
+      enabled: true

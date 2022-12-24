@@ -1,0 +1,13 @@
+- hosts: all
+
+  tasks:
+  - package:
+      name: "httpd"
+      state: present
+  - copy:
+      dest: "/var/www/html/index.html"
+      content: "<h2>Hello World</h2>"
+  - service:
+      name: "httpd"
+      state: started
+      enabled: true
