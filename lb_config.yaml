@@ -1,0 +1,21 @@
+- hosts: lb
+  vars:
+    - packageName: "haproxy"
+  
+  tasks:
+    - name: "install package haproxy"
+      package:
+        name: "{{ packageName }}"
+        state: present
+
+    - name: "configration file of haproxy"
+      template:
+        src: "local.cfg.j2"
+        dest: "/etc/haproxy/haproxy.cfg"
+
+    - name: "Start Service"
+      service:
+        name: "{{ packageName }}"
+        state: restarted
+        enabled: true
+

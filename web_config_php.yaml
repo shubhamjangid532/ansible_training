@@ -1,0 +1,23 @@
+- hosts: web
+
+  tasks:
+    - name: "Intall packahe HTTPD"
+      package:
+        name: "httpd"
+        state: "present"
+    
+    - name: "Install package PHP" 
+      package:
+        name: "php"
+        state: "present"
+
+    - name: "Copy the php code"
+      copy:
+        src: "index.php"
+        dest: "/var/www/html"
+
+    - name: "start the services of httpd"
+      service:
+        name: "httpd"
+        state: restarted
+        enabled: true
